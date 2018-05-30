@@ -35,13 +35,6 @@ public final class MatematicasLocas {
 		return distanciaDelSol * Math.sin(angulo);
 	}
 
-	private static double getMax(double a, double b){
-	    if (a > b) {
-	        return a;
-	    }
-	    return b;
-	}
-
 	/**
 	 * Determina si el punto (x,y) pertenece a la recta formada por los puntos (x1,y1) y (x2,y2).
 	 * 
