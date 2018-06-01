@@ -12,7 +12,7 @@ import context.TipoPeriodo;
 /**
  * @author ntoranzo
  * 
- * Si la diferencia de ángulos entre los planetas es de 0° o de 180° entonces los mismos se encuentran
+ * Si la diferencia de Ã¡ngulos entre los planetas es de 0 grados o de 180 grados entonces los mismos se encuentran
  * alineados entre si y con el sol.
  *
  */

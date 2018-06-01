@@ -14,7 +14,7 @@ package utils;
 public final class MatematicasLocas {
 
 	/**
-	 * Calcula la posici髇 en el eje X.
+	 * Calcula la posici贸n en el eje X.
 	 * 
 	 * @param distanciaDelSol
 	 * @param angulo
@@ -25,7 +25,7 @@ public final class MatematicasLocas {
 	}
 
 	/**
-	 * Calcula la posici髇 en el eje Y.
+	 * Calcula la posici贸n en el eje Y.
 	 * 
 	 * @param distanciaDelSol
 	 * @param angulo
@@ -51,7 +51,7 @@ public final class MatematicasLocas {
 	}
 
 	/**
-	 * 	Devuelve la intersecci髇 del eje Y con la recta determinada por los puntos (x1,y1) y (x2,y2).
+	 * 	Devuelve la intersecci贸n del eje Y con la recta determinada por los puntos (x1,y1) y (x2,y2).
 	 * 
 	 * @param x1
 	 * @param y1
@@ -64,7 +64,7 @@ public final class MatematicasLocas {
 	}
 
 	/**
-	 * 	Devuelve la intersecci髇 del eje X con la recta determinada por los puntos (x1,y1) y (x2,y2).
+	 * 	Devuelve la intersecci贸n del eje X con la recta determinada por los puntos (x1,y1) y (x2,y2).
 	 * 
 	 * @param x1
 	 * @param y1

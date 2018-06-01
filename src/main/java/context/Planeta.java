@@ -53,7 +53,7 @@ public class Planeta {
 	}
 
 	/**
-	 * Devuelve la posición angular del planeta en el día indicado.
+	 * Devuelve la posiciÃ³n angular del planeta en el dÃ­a indicado.
 	 * 
 	 * @param numeroDia
 	 * @return
@@ -64,7 +64,7 @@ public class Planeta {
 	}
 
 	/**
-	 * Devuelve las coordenadas del planeta según el día indicado.
+	 * Devuelve las coordenadas del planeta segÃºn el dÃ­a indicado.
 	 * 
 	 * @param numeroDia
 	 * @return

@@ -17,7 +17,7 @@ public class SistemaSolar {
 
 	public SistemaSolar(List<Planeta> planetas, List<IValidacion> validaciones) throws Exception {
 		if (planetas.size() < 3) {
-			throw new Exception("El ejercicio solo tiene sentido para un mínimo de 3 planetas dentro del sistema solar");
+			throw new Exception("El ejercicio solo tiene sentido para un mÃ­nimo de 3 planetas dentro del sistema solar");
 		}
 		this.planetas = planetas;
 		this.validaciones = validaciones;
@@ -31,7 +31,7 @@ public class SistemaSolar {
 	}
 
 	/**
-	 * Devuelve el tipo de período en el que el sistema solar se encuentra en el día indicado.
+	 * Devuelve el tipo de perÃ­odo en el que el sistema solar se encuentra en el dÃ­a indicado.
 	 * 
 	 * @param numeroDia
 	 * @return

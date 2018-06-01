@@ -13,7 +13,7 @@ import context.TipoPeriodo;
 public interface IValidacion {
 
 	/**
-	 * Método que devuelve si el sistema solar cumple las reglas impuestas por una validación X.
+	 * MÃ©todo que devuelve si el sistema solar cumple las reglas impuestas por una validaciÃ³n X.
 	 * 
 	 * @param sistemaSolar
 	 * @param numeroDia
@@ -22,7 +22,7 @@ public interface IValidacion {
 	public boolean cumpleRegla(SistemaSolar sistemaSolar, int numeroDia);
 
 	/**
-	 * Tipo de período que evalúa la validación actual.
+	 * Tipo de perÃ­odo que evalÃºa la validaciÃ³n actual.
 	 * 
 	 * @return
 	 */

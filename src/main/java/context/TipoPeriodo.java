@@ -10,7 +10,7 @@ public enum TipoPeriodo {
 	}
 	
 	/**
-	 * Devuelve el índice para el elemento dado.
+	 * Devuelve el Ã­ndice para el elemento dado.
 	 * 
 	 * @return
 	 */

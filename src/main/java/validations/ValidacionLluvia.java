@@ -11,11 +11,11 @@ import utils.MatematicasLocas;
 /**
  * @author ntoranzo
  * 
- * Valido si los planetas forman un tri·ngulo conteniendo al sol dentro del mismo.
- * InterpretaciÛn personal del enunciado: si el sol est· sobre el borde del triangulo
+ * Valido si los planetas forman un tri√°ngulo conteniendo al sol dentro del mismo.
+ * Interpretaci√≥n personal del enunciado: si el sol est√° sobre el borde del triangulo
  * lo considero fuera del mismo.
- * Esto lo logro viendo las intersecciones del tri·ngulo resultante con los ejes:
- * el tri·ngulo se interseca con todos <=> el sol est· dentro del mismo.
+ * Esto lo logro viendo las intersecciones del triÔøΩngulo resultante con los ejes:
+ * el tri√°ngulo se interseca con todos <=> el sol est√° dentro del mismo.
  *
  */
 public class ValidacionLluvia implements IValidacion {
@@ -74,9 +74,9 @@ public class ValidacionLluvia implements IValidacion {
 			perimetroActual += MatematicasLocas.getDistancia(p[i].getX(), p[i].getY(),
 					p[(i + 1) % 3].getX(), p[(i + 1) % 3].getY());
 		}
-		// Verifico si ya alcancÈ las condiciones para que el sol estÈ en el centro del tri·ngulo formado por los 3 planetas.
+		// Verifico si ya alcanc√© las condiciones para que el sol est√© en el centro del tri√°ngulo formado por los 3 planetas.
 		if (interseccionCon[EJE_MENOS_X] && interseccionCon[EJE_MAS_X] && interseccionCon[EJE_MENOS_Y] && interseccionCon[EJE_MAS_Y]) {
-			// Valido si el actual es un nuevo m·ximo de lluvias.
+			// Valido si el actual es un nuevo m√°ximo de lluvias.
 			if (perimetroActual > perimetroMaximo) {
 				perimetroMaximo = perimetroActual;
 				numeroDiaMaximoLluvias = numeroDia;
