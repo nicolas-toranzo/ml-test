@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author ntoranzo
@@ -75,11 +76,11 @@ public class ServiceController {
 	}
 
 	@RequestMapping("/clima")
-	public Response index() {
+	public Response clima(@RequestParam("dia") int numeroDia) {
 		Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-		Key entityKey = datastore.newKeyFactory().setKind("Pronostico").newKey(1);
+		Key entityKey = datastore.newKeyFactory().setKind("Pronostico").newKey(numeroDia);
 		Entity retrieved = datastore.get(entityKey);
-		return new Response(1, retrieved.getString("clima"));
+		return new Response(numeroDia, retrieved.getString("clima"));
 	}
 
 }
