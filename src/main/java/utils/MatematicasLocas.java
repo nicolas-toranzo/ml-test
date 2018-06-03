@@ -47,6 +47,8 @@ public final class MatematicasLocas {
 	 * @return
 	 */
 	public static boolean puntoPerteneceARecta (double x, double y, double x1, double y1, double x2, double y2) {
+		if (x1 == x2) return (x == x1) ? true : false;
+		if (y1 == y2) return (y == y1) ? true : false;
 		return ((x-x1) / (x2-x1)) == ((y-y1) / (y2-y1));
 	}
 
@@ -60,6 +62,7 @@ public final class MatematicasLocas {
 	 * @return
 	 */
 	public static double getInterseccionConEjeY (double x1, double y1, double x2, double y2) {
+		if (x2 == x1) return Double.POSITIVE_INFINITY;
 		return (y1 - x1 * ((y2-y1) / (x2-x1)));
 	}
 
@@ -73,6 +76,7 @@ public final class MatematicasLocas {
 	 * @return
 	 */
 	public static double getInterseccionConEjeX (double x1, double y1, double x2, double y2) {
+		if (y2 == y1) return Double.POSITIVE_INFINITY;
 		return (x1 - y1 * ((x2-x1) / (y2-y1)));
 	}
 
