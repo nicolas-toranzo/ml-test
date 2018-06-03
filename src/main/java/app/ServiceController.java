@@ -12,20 +12,14 @@ import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Key;
 
-import context.Planeta;
-import context.SistemaSolar;
-import context.TipoPeriodo;
+import context.Simulacion;
 import task.InitializeDatastoreDeferredTask;
-import validations.IValidacion;
-import validations.ValidacionCOPYT;
-import validations.ValidacionLluvia;
-import validations.ValidacionSequia;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -35,52 +29,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 public class ServiceController {
 
-	@RequestMapping("/resumen")
-	public List<ResponseResumen> resumen() {
-		try {
-			// Armo la lista de validaciones que voy a aplicar sobre el sistema solar.
-			List<IValidacion> validaciones = new ArrayList<>();
-			ValidacionLluvia validacionLluvia = new ValidacionLluvia(); 
-			validaciones.add(new ValidacionSequia());
-			validaciones.add(new ValidacionCOPYT());
-			validaciones.add(validacionLluvia);
-			// Instancio el sistema solar indicando la lista de planetas y las validaciones que aplicar� sobre el mismo.
-			SistemaSolar sistemaSolar = new SistemaSolar(
-					Arrays.asList(new Planeta(500, 1, 0), new Planeta(1000, -5, 0), new Planeta(2000, 3, 0)), validaciones);
-			// Corro la simulaci�n a lo largo de 3653 días terrestres (los pr�ximos 10 años; 3 son bisiestos)
-			// y observo los resultados de acuerdo al enunciado del ejercicio.
-			int[] contadorResultados = new int[TipoPeriodo.values().length];
-			Arrays.fill(contadorResultados, 0);
-			for (int i = 0; i < 3650; i++) {
-				TipoPeriodo tipoPeriodo = sistemaSolar.getTipoPeriodo(i);
-				contadorResultados[tipoPeriodo.getIndex()] += 1;
-			}
-			List<ResponseResumen> response = new ArrayList<ResponseResumen>();
-			for (int i = 0; i < TipoPeriodo.values().length; i++) {
-				response.add(new ResponseResumen(TipoPeriodo.getByIndex(i).toString(), contadorResultados[i]));
-			}
-			response.add(new ResponseResumen("El primer día del pico de lluvia se dió en el día #", validacionLluvia.getNumeroDiaMaximoLluvias()));
-			return response;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+	@RequestMapping("/")
+	public Map<String, Integer> resumen() {
+		Map<String, Integer> mapResultados = new HashMap<String, Integer>();
+		for (int i = 0; i < Simulacion.NUMERO_DIAS_SIMULACION; i++) {
+			mapResultados.compute(Simulacion.getResultado(i).toString(), (k, v) -> (v == null) ? 1 : v + 1);
 		}
+		mapResultados.put("Primer día del máximo de lluvias: ", Simulacion.getNumeroDiaMaximoLluvias());
+		return mapResultados;
 	}
 	
-	@RequestMapping("/init")
-	public void init() {
+	@RequestMapping(value = "/init-datastore", method = RequestMethod.GET)
+	public String init() {
 		// Inicializo el datastore: creo el job para que lo haga según lo solicitado.
 		InitializeDatastoreDeferredTask task = new InitializeDatastoreDeferredTask();
 		Queue queue = QueueFactory.getDefaultQueue();
 		queue.add(com.google.appengine.api.taskqueue.TaskOptions.Builder.withPayload(task));
+		return "Tarea programada, el Datastore será inicializado";
 	}
 
-	@RequestMapping("/clima")
-	public Response clima(@RequestParam("dia") int numeroDia) {
+	private Response getResponseFromDatastore(int numeroDia) {
+		if (numeroDia < 1 || numeroDia > Simulacion.NUMERO_DIAS_SIMULACION) {
+			return new Response(EstadoRespuesta.ERROR, "Número de día fuera del rango de la simulación");
+		}
 		Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 		Key entityKey = datastore.newKeyFactory().setKind("Pronostico").newKey(numeroDia);
 		Entity retrieved = datastore.get(entityKey);
 		return new Response(numeroDia, retrieved.getString("clima"));
+	}
+
+	@RequestMapping(value = "/clima", method = RequestMethod.GET)
+	public Response clima(@RequestParam("dia") int numeroDia) {
+		return getResponseFromDatastore(numeroDia);
+	}
+
+	@RequestMapping(value = "/clima2/{numeroDia}", method = RequestMethod.GET)
+	public Response clima2(@PathVariable("numeroDia") int numeroDia) {
+		return getResponseFromDatastore(numeroDia);
 	}
 
 }
